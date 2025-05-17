@@ -1,4 +1,4 @@
-package com.example.ndis_client.ui.components
+package com.example.ndis_client.data
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -7,6 +7,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.ndis_client.R
+import androidx.compose.ui.graphics.lerp
+import androidx.compose.material3.MaterialTheme
 
 data class ServiceItem(
     val icon: androidx.compose.ui.graphics.painter.Painter,
@@ -45,11 +47,13 @@ fun generateTransactions(): List<Transaction> {
 
 @Composable
 fun generateBudgetSegments(): List<Pair<Float, Color>> {
+    val baseColor = MaterialTheme.colorScheme.primary
+
     return listOf(
-        37f to Color(0xFFD32F2F),
-        26f to Color(0xFF03A9F4),
-        22f to Color(0xFFFF9800),
-        15f to Color(0xFF4CAF50)
+        37f to lerp(baseColor, Color.White, 0.0f),
+        26f to lerp(baseColor, Color.White, 0.2f),
+        22f to lerp(baseColor, Color.White, 0.4f),
+        15f to lerp(baseColor, Color.White, 0.6f)
     )
 }
 

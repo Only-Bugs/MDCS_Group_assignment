@@ -12,6 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.ndis_client.data.bottomNavItems
+import com.example.ndis_client.data.generateBudgetSegments
+import com.example.ndis_client.data.generateServicesIncluded
+import com.example.ndis_client.data.generateTransactions
 import com.example.ndis_client.ui.components.*
 import com.example.ndis_client.ui.theme.NDIS_clientTheme
 
@@ -136,8 +140,12 @@ fun DashboardScreen() {
 
 @Composable
 fun BookAppointmentScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Book Appointment Page")
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        BookAppointmentFormScaffold()
     }
 }
 
