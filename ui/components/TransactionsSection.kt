@@ -13,16 +13,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
-import com.example.ndis_client.R
+import com.example.ndis_client.data.Transaction
 
 fun extractRecipientInitial(title: String): String {
+    val honorifics = setOf("Mr.", "Ms.", "Mrs.", "Dr.", "Miss")
+
     return title
         .removePrefix("To ")
         .split(" ")
-        .firstOrNull { it.firstOrNull()?.isLetter() == true }
+        .firstOrNull { it.isNotBlank() && it !in honorifics }
         ?.firstOrNull()
-        ?.toString()
-        ?.uppercase() ?: "?"
+        ?.uppercaseChar()
+        ?.toString() ?: "?"
 }
 
 @Composable
