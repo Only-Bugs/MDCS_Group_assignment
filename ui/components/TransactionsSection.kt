@@ -3,8 +3,6 @@ package com.example.ndis_client.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,25 +10,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
 import com.example.ndis_client.R
-
-
 
 fun extractRecipientInitial(title: String): String {
     return title
-        .removePrefix("To ")                         // Remove "To " at start
-        .split(" ")                                  // Split into words
-        .firstOrNull { it.firstOrNull()?.isLetter() == true } // Take first valid word
-        ?.firstOrNull()                              // Get first letter of that word
+        .removePrefix("To ")
+        .split(" ")
+        .firstOrNull { it.firstOrNull()?.isLetter() == true }
+        ?.firstOrNull()
         ?.toString()
-        ?.uppercase() ?: "?"                         // Default to "?" if failed
+        ?.uppercase() ?: "?"
 }
-
 
 @Composable
 fun TransactionsSection(transactions: List<Transaction>) {
@@ -41,10 +34,10 @@ fun TransactionsSection(transactions: List<Transaction>) {
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        LazyColumn(
+        Column(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(transactions) { transaction ->
+            transactions.forEach { transaction ->
                 TransactionItem(transaction)
             }
         }
@@ -72,8 +65,12 @@ fun TransactionItem(transaction: Transaction) {
             )
         }
 
-        // Middle text
-        Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
+        // Middle section: Title + Subtitle
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 12.dp)
+        ) {
             Text(
                 text = transaction.title,
                 fontWeight = FontWeight.SemiBold,
@@ -86,7 +83,6 @@ fun TransactionItem(transaction: Transaction) {
             )
         }
 
-        // Amount + download icon
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = transaction.amount,

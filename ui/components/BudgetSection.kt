@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.font.FontWeight
 
 @Composable
 fun PieChart(
@@ -22,14 +23,14 @@ fun PieChart(
     Canvas(modifier = modifier) {
         var startAngle = -90f
         segments.forEach { (percent, color) ->
-            val sweep = percent / 100f * 360f
+            val sweepAngle = percent / 100f * 360f
             drawArc(
                 color = color,
                 startAngle = startAngle,
-                sweepAngle = sweep,
+                sweepAngle = sweepAngle,
                 useCenter = true
             )
-            startAngle += sweep
+            startAngle += sweepAngle
         }
     }
 }
@@ -43,24 +44,29 @@ fun BudgetSection(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(16.dp))
+            .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(16.dp))
             .padding(16.dp)
     ) {
         Text(
             text = "Budget",
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 12.dp)
         )
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             PieChart(
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(100.dp)
                     .padding(end = 16.dp),
                 segments = segments
             )
 
-            Column {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 segments.forEachIndexed { index, (percent, color) ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(
@@ -69,7 +75,10 @@ fun BudgetSection(
                                 .background(color = color, shape = CircleShape)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Metric ${index + 1} - ${percent.toInt()}%")
+                        Text(
+                            text = "Metric ${index + 1} - ${percent.toInt()}%",
+                            style = MaterialTheme.typography.bodySmall
+                        )
                     }
                 }
 
@@ -77,8 +86,9 @@ fun BudgetSection(
 
                 Text(
                     text = "$creditLeft credits left",
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
-                    color = Color(0xFF1A661A)
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF1A661A),
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }

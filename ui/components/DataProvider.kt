@@ -33,6 +33,9 @@ fun generateTransactions(): List<Transaction> {
     val data = listOf(
         Triple("Dr. Dave Kurt", "General Clinics Pvt Ltd.", "-$55"),
         Triple("Mr. Kelly Rao", "Sunshine Dental", "-$80"),
+        Triple("Ms. Reema", "Optic Vision", "-$40"),
+        Triple("Dr. Dave Kurt", "General Clinics Pvt Ltd.", "-$55"),
+        Triple("Mr. Kelly Rao", "Sunshine Dental", "-$80"),
         Triple("Ms. Reema", "Optic Vision", "-$40")
     )
     return data.map { (name, sub, amt) ->

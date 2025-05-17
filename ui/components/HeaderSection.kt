@@ -26,7 +26,9 @@ fun HeaderSection(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
             Text(
                 text = "Morning,",
                 style = MaterialTheme.typography.titleMedium
@@ -34,8 +36,8 @@ fun HeaderSection(
             Text(
                 text = userName,
                 fontSize = 22.sp,
-                color = Color(0xFF2C6DA6), // Custom blue like the image
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF2C6DA6) // Custom blue
             )
             Text(
                 text = userId,
@@ -44,19 +46,22 @@ fun HeaderSection(
             )
         }
 
-        // Right: Pill with days left
         Box(
             modifier = Modifier
-                .border(width = 2.dp, color = Color(0xFFB9D4B4), shape = RoundedCornerShape(16.dp))
+                .border(
+                    width = 2.dp,
+                    color = Color(0xFFB9D4B4),
+                    shape = RoundedCornerShape(16.dp)
+                )
                 .padding(horizontal = 24.dp, vertical = 12.dp),
             contentAlignment = Alignment.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "$daysLeft",
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF3D7A47), // green text
-                    fontSize = 22.sp
+                    color = Color(0xFF3D7A47) // Green
                 )
                 Text(
                     text = "Days Left",

@@ -5,8 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -64,14 +63,16 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { innerPadding ->
-                    Surface(modifier = Modifier.padding(innerPadding)) {
-                        Column(modifier = Modifier.fillMaxSize()) {
-                            when (selectedIndex) {
-                                0 -> DashboardScreen()
-                                1 -> BookAppointmentScreen()
-                                2 -> MyAppointmentsScreen()
-                                3 -> AccountScreen()
-                            }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    ) {
+                        when (selectedIndex) {
+                            0 -> DashboardScreen()
+                            1 -> BookAppointmentScreen()
+                            2 -> MyAppointmentsScreen()
+                            3 -> AccountScreen()
                         }
                     }
                 }
@@ -82,44 +83,56 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DashboardScreen() {
-    Column(modifier = Modifier.padding(16.dp)) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Your Dashboard",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = Color(0xFF1E1E1E),
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+            }
+        }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, bottom = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Your Dashboard",
-                style = MaterialTheme.typography.headlineSmall,
-                color = Color(0xFF1E1E1E),
-                modifier = Modifier.padding(start = 4.dp)
+        item {
+            HeaderSection(
+                userName = "Shreya Shrestha",
+                userId = "987654321",
+                daysLeft = 289
             )
         }
 
-        HeaderSection(
-            userName = "Shreya Shrestha",
-            userId = "987654321",
-            daysLeft = 289
-        )
+        item {
+            BudgetSection(
+                segments = generateBudgetSegments(),
+                creditLeft = "$64,251"
+            )
+        }
 
-        BudgetSection(
-            segments = generateBudgetSegments(),
-            creditLeft = "$64,251"
-        )
+        item {
+            ServicesIncluded(
+                services = generateServicesIncluded()
+            )
+        }
 
-        ServicesIncluded(
-            services = generateServicesIncluded()
-        )
-
-        TransactionsSection(
-            transactions = generateTransactions()
-        )
+        item {
+            TransactionsSection(
+                transactions = generateTransactions()
+            )
+        }
     }
 }
-
-
 
 @Composable
 fun BookAppointmentScreen() {
